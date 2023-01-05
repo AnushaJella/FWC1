@@ -1,0 +1,209 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{blindtext}
+\usepackage{karnaugh-map}
+\usepackage{circuitikz}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{
+  circuits.logic,
+  circuits.logic.US,
+  positioning
+}
+
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{SOP expression for Boolean Function}
+\author{Anusha Jella}
+
+\begin{document}
+\maketitle
+\begin{multicols}{2}
+\tableofcontents
+
+\begin{abstract}
+ This manual shows how to use Arduino with LED to represent Boolean function.
+\end{abstract}
+\section {Components}
+
+%\begin{table}[]
+    \centering
+    \begin{tabular}{ |c |c |c |c |}
+\hline
+\textbf{Components} & \textbf{Value} & \textbf{Quantity} \\
+\hline
+ %Resistor & 220Ohm & 1 \\ 
+ Arduino & UNO & 1 \\  
+ %Seven segment Display &  & 1 \\
+ %Decoder& 7447&1 \\
+ LED & - & 1 \\
+ Jumper wires&M-M &6\\
+ Breadboard& &1\\
+ \hline
+ \end{tabular}
+ \vspace{3mm}
+ \centering
+ \textbf{Table1.0}
+    \label{table1}
+%\end{table}
+
+\section{Hardware}
+\begin{flushleft}
+\textbf{Problem 2.1} Plug the display to the breadboard and make the connections in Table \ref{table2}. Henceforth, all 5V and GND connections will be made from the breadboard. 
+\end{flushleft}
+\hspace{10mm}
+\vspace{10mm}
+ \centering
+    \begin{tabular}{ |c |c |c |c |}
+\hline
+\textbf{Arduino} & \textbf{Breadboard} \\
+\hline
+ %Resistor & 220Ohm & 1 \\ 
+ 5V & Top Green \\  
+ %Seven segment Display &  & 1 \\
+ %Decoder& 7447&1 \\
+ GND & Bottom Green\\
+  \hline
+ \end{tabular}
+ \\
+% \vspace{2mm}
+\centering
+ \textbf{Table 2}
+    \label{table2}
+    
+\section{Software}
+\begin{flushleft}
+   \textbf{Problem 3.1.} Now make the connections as per
+Table \ref{table3}.0 and execute the following program after
+downloading.\\
+\vspace{0.5cm}
+%\framebox{
+%\url{https://github.com/AnushaJella/assignment1}}
+\begin{mdframed}
+    \url{https://github.com/AnushaJella/assignment1/blob/main/codes/src/main.cpp}
+\end{mdframed}
+\vspace{2mm}
+In the truth table in Table \ref{table4}.1, A,B,C are the
+inputs and F is the output.Using boolean
+logic
+\\
+\vspace{3mm}
+\centering
+    \begin{tabular}{ |c |c |c |c |}
+\hline
+\textbf{A} & \textbf{B}& \textbf{C}& \textbf{F(A,B,C)} \\
+\hline
+ %Resistor & 220Ohm & 1 \\ 
+ 0 & 0& 0 &1 \\ 
+ 0 & 0& 1 &0 \\
+ 0 & 1& 0 &0 \\
+ 0 & 1& 1 &1 \\ 
+ 1 & 0& 0 &1 \\ 
+  1 & 0& 1 &0 \\ 
+  1 & 1& 0 &0 \\ %Seven segment Display &  & 1 \\
+ 1 & 1& 1 &1 \\
+  \hline
+ \end{tabular}\\
+
+ \vspace{3mm}
+\centering
+ \textbf{Table 3.1}
+    \label{table4}
+    \\
+    
+\begin{karnaugh-map}[4][2][1][$BC$][$A$]
+        \minterms{0,4,3,7}
+        \maxterms{1,2,5,6}
+        %\indeterminants{2,5}
+        \implicant{0}{4}
+        \implicant{3}{7}
+    \end{karnaugh-map}
+    %\vspace{1mm}
+    \centering
+    \textbf{K-Map}
+\begin{equation}
+F=B'*C'+B*C
+\label{eq1}
+\end{equation}
+\end{flushleft}
+
+\vspace{0.5cm}
+%\begin{table}[]
+    \centering
+    \begin{tabular}{ |c |c |c |c| }
+
+%\textbf{Components} & \textbf{Value} & \textbf{Quantity} \\
+\hline
+ \textbf{} & A & B& C \\ 
+ \hline
+ \textbf{Input} & 0 & 0 & 0 \\
+ \textbf{Arduino} & 6& 7 & 8 \\  
+
+ \hline
+ \end{tabular}\\
+ \vspace{3mm}
+\centering 
+ \textbf{Table 3.0}
+    \label{table3}
+%\end{table}
+
+\vspace{10mm}
+ 
+    \vspace{3mm}
+    \tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\title{logic circuit for F as in eq.\ref{eq1}}
+\begin{tikzpicture}[label distance=2mm]
+
+    %\node (x3) at (0,0) {$x_3$};
+    \node (x2) at (1,0) {$A$};
+    \node (x1) at (2,0) {$B$};
+    \node (x0) at (3,0) {$C$};
+
+    %\node[not gate US, draw, rotate=-90] at ($(x2)+(0.5,-1)$) (Not2) {};
+    \node[not gate US, draw, rotate=-90] at ($(x1)+(0.5,-1)$) (Not1) {};
+    \node[not gate US, draw, rotate=-90] at ($(x0)+(0.5,-1)$) (Not0) {};
+
+    \node[and gate US, draw, logic gate inputs=nn,scale=0.05cm] at ($(x0)+(2,-2)$) (and1) {};
+    \node[and gate US, draw, logic gate inputs=nn,scale=0.05cm] at ($(and1)+(0,-1)$) (and2) {};
+   
+    \node[or gate US, draw, logic gate inputs=nn, anchor=input 1,scale=0.05cm] at ($(and1.output -| and2.output)+(1,0)$) (or1) {};
+
+\foreach \i in {1,0}
+    {
+        \path (x\i) -- coordinate (punt\i) (x\i |- Not\i.input);
+        \draw (punt\i) node[branch] {} -| (Not\i.input);
+    }
+   
+    \draw (x1) |- (and1.input 1);
+    \draw (x1 |- and1.input 1) node[branch] {} -- (and1.input 1);
+    \draw (Not1.output) |- (and2.input 1);
+    \draw (Not1.output |- and2.input 1) node[branch] {} -- (and2.input 1);
+    \draw (x0) |- (and1.input 2);
+    \draw (Not0.output) |- (and2.input 2);
+    \draw (Not0.output |- and2.input 2) node[branch] {} -- (and2.input 2);
+    %\draw (and1.output) -- (or1.input 1);
+    \draw (and1.output) -- ([xshift=0.5cm]and1.output) |- (or1.input 1);
+    %\draw (and2.output) -- (or1.input 2);
+    \draw (and2.output) -- ([xshift=0.5cm]and2.output) |- (or1.input 2);
+   % \draw (Or1.output) -- (And2.input 1);
+    %\draw (Nor1.output) -- ([xshift=0.5cm]Nor1.output) |- (And2.input 2);
+    \draw (or1.output) -- ([xshift=0.5cm]or1.output) node[above] {$F$};
+
+\end{tikzpicture}
+\textbf{Problem 3.2.} Verify above code for all inputs from 000-111.
+\end{multicols}{2}
+\end{document}
